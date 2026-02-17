@@ -45,12 +45,12 @@ def postprocess(img_path, angle, image_size):
     img = rotate_preserve_size(img_path, angle, (image_size, image_size), False)
 
     # filename = "cs776a-pred.jpg" #img_path.split("/")[-1]
-    filename = "pred_" + img_path.split("/")[-1]
+    filename = "pred_" + os.path.basename(img_path)
 
     try:
         img.save(os.path.join(SAVE_IMAGE_DIR, filename))
-        logger.info(f"Image after orientation angle correction has been saved here: /tmp/{filename}")
+        logger.info(f"Image after orientation angle correction has been saved here: {os.path.join(SAVE_IMAGE_DIR, filename)}")
     except:
-        filename = str(datetime.datetime.now()) + "_" + filename
+        filename = datetime.datetime.now().strftime("%Y%m%d_%H%M%S") + "_" + filename
         img.save(os.path.join(SAVE_IMAGE_DIR, filename))
-        logger.info(f"Image after orientation angle correction has been saved here: /tmp/{filename}")
+        logger.info(f"Image after orientation angle correction has been saved here: {os.path.join(SAVE_IMAGE_DIR, filename)}")
